@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\LocalityController;
+use App\Http\Controllers\RegionController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +25,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/companies', [CompanyController::class, 'index'])->middleware(['auth', 'verified'])->name('companies.index');
+Route::get('/localities/{locality}', [LocalityController::class, 'index'])->middleware(['auth', 'verified'])->name('locality.index');
+Route::get('/regions/{region}', [RegionController::class, 'index'])->middleware(['auth', 'verified'])->name('region.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
