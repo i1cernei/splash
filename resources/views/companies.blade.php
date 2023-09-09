@@ -16,7 +16,8 @@
                         </form>
                         <button class="bg-blue-400 border-2 border-blue-200 border-solid text-white text-sm py-2 px-4 mb-4 rounded-xl hover:bg-blue-600">Add New Company</button></div>
                     {{-- <ul class="flex flex-col flex-nowrap"> --}}
-                        <table class="w-full [&_tr]:mb-2">
+                        <div class="mb-8">{{$companies->links()}}</div>
+                        <table class="w-full [&_tr]:mb-2 mt-2 mb-8">
                         <tr class="text-left ">
                             <th>Company Name</th>
                             <th>Fiscal Code</th>
@@ -53,6 +54,7 @@
                             </tr>
                         @endforeach
                         </table>
+                        {{$companies->links()}}
                     {{-- </ul> --}}
                 </div>
             </div>

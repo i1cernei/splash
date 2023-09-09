@@ -9,11 +9,13 @@ class CompanyController extends Controller
 {
     //
     public function index() {
-        $companies = Company::with('locality')->filter(request(['search']))->get();
+        $companies = Company::with('locality')
+        ->filter(request(['search']))
+        ->paginate();
 
 
 
-        return view('companies', compact('companies'));
+        return view('companies',['companies' => $companies]);
     }
 
     public function create(Request $req) {
