@@ -18,7 +18,17 @@ class Company extends Model
         'locality_id'
     ];
 
+    public function scopeFilter($query) {
+        if(request('search')) {
+            $query->where('name', 'like', '%' . request('search') .'%')
+                ->orWhere('description', 'like', '%' . request('search') .'%')
+                ->orWhere('cif', 'like', '%' . request('search') .'%');
+        }
+    }
+
     public function locality(): BelongsTo {
         return $this->belongsTo(Locality::class);
     }
+
+
 }

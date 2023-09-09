@@ -9,7 +9,9 @@ class CompanyController extends Controller
 {
     //
     public function index() {
-        $companies = Company::with('locality')->get();
+        $companies = Company::with('locality')->filter()->get();
+
+
 
         return view('companies', compact('companies'));
     }
