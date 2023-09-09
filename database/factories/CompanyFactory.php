@@ -18,6 +18,9 @@ class CompanyFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->company,
+            'cif' =>  $this->faker->unique()->numberBetween(10000000, 99999999),
+            'description' => $this->faker->sentence,
         ];
     }
 }

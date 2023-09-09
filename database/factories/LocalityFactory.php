@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Region;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Locality>
@@ -18,6 +19,8 @@ class LocalityFactory extends Factory
     {
         return [
             //
+            'name'=> $this->faker->city(),
+
         ];
     }
 }

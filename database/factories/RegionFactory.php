@@ -18,6 +18,7 @@ class RegionFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->country,
         ];
     }
 }
