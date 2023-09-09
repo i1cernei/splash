@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\Builder;
 use App\Models\Locality;
 
 class Company extends Model
@@ -18,11 +19,14 @@ class Company extends Model
         'locality_id'
     ];
 
-    public function scopeFilter($query) {
-        if(request('search')) {
-            $query->where('name', 'like', '%' . request('search') .'%')
-                ->orWhere('description', 'like', '%' . request('search') .'%')
-                ->orWhere('cif', 'like', '%' . request('search') .'%');
+    public function scopeFilter($query , array $filters) {
+        if ($filters['search'] ?? false) {
+            $query
+                ->where('name', 'like', '%' . $filters['search'] .'%')
+                ->orWhere('description', 'like', '%' . $filters['search'] .'%')
+                ->orWhere('cif', 'like', '%' . $filters['search'] .'%')
+                ;
+
         }
     }
 
