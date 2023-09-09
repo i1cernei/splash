@@ -27,17 +27,7 @@
                             <th>Actions</th>
                         </tr>
                         @foreach ($companies as $company )
-                            {{-- <li class="company flex flex-row justify-between gap-x-2 p-2 items-center">
-                                <div class="data flex grow gap-x-2">
-                                    <p>{{$company->name}}</p>
-                                    <p>{{$company->locality->name}}</p>
-                                    <p>{{$company->locality->region->name}}</p>
-                                </div>
-                                <div class="buttons gap-x-2 flex flex-row">
-                                    <button class="bg-yellow-200 text-black py-2 px-4 rounded-xl hover:bg-yellow-500">Edit</button>
-                                    <button class="bg-red-400 text-white py-2 px-4 rounded-xl hover:bg-red-700">Delete</button>
-                                </div>
-                            </li>      --}}
+
                             
                             <tr class="">
                                 <td><p>{{$company->name}}</p></td>
@@ -47,8 +37,13 @@
                                 <td><p>{{$company->description}}</p></td>
                                 <td>
                                     <div class="buttons gap-x-2 flex flex-row">
-                                        <button class="bg-yellow-200 text-black py-2 px-4 rounded-xl hover:bg-yellow-500">Edit</button>
-                                        <button class="bg-red-400 text-white py-2 px-4 rounded-xl hover:bg-red-700">Delete</button>
+                                        <a href="/companies/edit/{{$company->id}}" class="bg-yellow-200 text-black py-2 px-4 rounded-xl hover:bg-yellow-500">Edit</a>
+                                        <form method="POST" action='/companies/delete/{{$company->id}}'>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="bg-red-400 text-white py-2 px-4 rounded-xl hover:bg-red-700">Delete</button>
+                                        </form>
+                                        {{-- <a href="/companies/delete/{{$company->id}}" class="bg-red-400 text-white py-2 px-4 rounded-xl hover:bg-red-700">Delete</a> --}}
                                     </div>
                                 </td>
                             </tr>
@@ -59,5 +54,14 @@
                 </div>
             </div>
         </div>
+        @if (session()->has('success'))
+            <div
+            x-data="{show: true}"
+            x-init="setTimeout(() => { show = false}, 4000)"
+            x-show="show"
+            class='fixed right-8 bottom-12 max-w-sm bg-green-400 rounded-full'>
+                <p class="text-black text-center px-4 py-2">{{session('success')}}</p>
+            </div>
+        @endif
     </div>
 </x-app-layout>

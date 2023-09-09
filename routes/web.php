@@ -30,6 +30,12 @@ Route::get('/companies', [CompanyController::class, 'index'])->middleware(['auth
 Route::post('/companies', [CompanyController::class, 'store'])->middleware(['auth', 'verified'])->name('companies.store');
 
 Route::get('/companies/create', [CompanyController::class, 'create'])->middleware(['auth', 'verified'])->name('companies.create');
+Route::get('/companies/edit/{company}', [CompanyController::class, 'edit'])->middleware(['auth', 'verified'])->name('companies.edit');
+Route::patch('/companies/edit/{company}', [CompanyController::class, 'update'])->middleware(['auth', 'verified'])->name('companies.update');
+Route::delete('/companies/delete/{company}', [CompanyController::class, 'destroy'])->middleware(['auth', 'verified'])->name('companies.destroy');
+
+
+
 Route::get('/localities/{locality}', [LocalityController::class, 'index'])->middleware(['auth', 'verified'])->name('locality.index');
 Route::get('/regions/{region}', [RegionController::class, 'index'])->middleware(['auth', 'verified'])->name('region.index');
 Route::get('/regions/localities/{region}', [RegionController::class, 'localities'])->middleware(['auth', 'verified'])->name('region.localities');

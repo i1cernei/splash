@@ -25,6 +25,11 @@ class CompanyController extends Controller
         return view('companies.create');
     }
 
+    public function edit(Company $company) {
+
+        return view('companies.edit', ['company' => $company]);
+    }
+
     public function store() {
         // dd(request()->all());
         
@@ -45,7 +50,7 @@ class CompanyController extends Controller
             'description' => $data['description']
         ]);
 
-        return redirect('/companies');
+        return redirect('/companies')->with('success', 'Company added!');
     }
 
     public function read(Company $company) {
@@ -54,20 +59,24 @@ class CompanyController extends Controller
 
     }
 
-    public function update(Request $request, Company $company)
+    public function update( Company $company)
     {
-        $data = $request->validate([
+        $data = request()->validate([
             'name' => 'required|string|max:255',
-            'cif' => 'required',
-            'locality_id' => 'required'
+            'cif' => ['required', Rule::unique('companies', 'cif')->ignore($company->id)],
+            'locality_id' => ['required', Rule::exists('localities', 'id')],
+            'region' => ['required', Rule::exists('regions', 'id')],
+            'description' => 'nullable',
         ]);
 
         $company->update($data);
 
-        return redirect()->route('companies');
+        return back()->with('success','Company updated!');
     }
 
     public function destroy(Company $company) {
         $company->delete();
+
+        return back()->with('success', 'Company deleted!');
     }
 }
