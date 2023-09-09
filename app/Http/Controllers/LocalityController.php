@@ -9,7 +9,9 @@ class LocalityController extends Controller
 {
     //
     public function index(Locality $locality) {
-        $companies = $locality->companies;
+        $companies = $locality->companies()
+        ->filter(request(['search']))
+        ->paginate(15);
 
         return view('companies', compact('companies'));
     }

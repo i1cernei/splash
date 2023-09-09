@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
+use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
 {
     //
     public function index() {
         $companies = Company::with('locality')
+        ->latest()
         ->filter(request(['search']))
         ->paginate();
 
@@ -18,23 +20,32 @@ class CompanyController extends Controller
         return view('companies',['companies' => $companies]);
     }
 
-    public function create(Request $req) {
-        $body = $req->all();
+    public function create() {
 
-        $data = $req->validate([
+        return view('companies.create');
+    }
+
+    public function store() {
+        // dd(request()->all());
+        
+        $data = request()->validate([
             'name' => 'required|string|max:255',
-            'cif' => 'required',
-            'locality_id' => 'required'
+            'cif' => ['required', Rule::unique('companies', 'cif')],
+            'locality_id' => ['required', Rule::exists('localities', 'id')],
+            'region' => ['required', Rule::exists('regions', 'id')],
+            'description' => 'nullable',
         ]);
 
-        $company = new Company();
-        $company->fill($body);
-       
+        // dd($data);
 
+        $company = Company::create([
+            'name' => $data['name'],
+            'cif' => $data['cif'],
+            'locality_id' => $data['locality_id'],
+            'description' => $data['description']
+        ]);
 
-        $company->save();
-
-        return response('Company added', 200);
+        return redirect('/companies');
     }
 
     public function read(Company $company) {

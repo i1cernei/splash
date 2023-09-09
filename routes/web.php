@@ -27,8 +27,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/companies', [CompanyController::class, 'index'])->middleware(['auth', 'verified'])->name('companies.index');
+Route::post('/companies', [CompanyController::class, 'store'])->middleware(['auth', 'verified'])->name('companies.store');
+
+Route::get('/companies/create', [CompanyController::class, 'create'])->middleware(['auth', 'verified'])->name('companies.create');
 Route::get('/localities/{locality}', [LocalityController::class, 'index'])->middleware(['auth', 'verified'])->name('locality.index');
 Route::get('/regions/{region}', [RegionController::class, 'index'])->middleware(['auth', 'verified'])->name('region.index');
+Route::get('/regions/localities/{region}', [RegionController::class, 'localities'])->middleware(['auth', 'verified'])->name('region.localities');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

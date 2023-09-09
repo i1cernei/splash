@@ -12,9 +12,9 @@
                 <div class="p-6 text-gray-900 w-full">
                     <div class="controls flex w-full flex-row justify-between">
                         <form action="#" method="get">
-                            <input type="search" name="search" value={{request('search')}} class="bg-transparente placeholder-black rounded-xl font-semibold text-sm" placeholder="Search Here" id="">
+                            <input type="search" name="search" value="{{request('search')}}" class="bg-transparent placeholder-black rounded-xl font-semibold text-sm" placeholder="Search Here" id=""/>
                         </form>
-                        <button class="bg-blue-400 border-2 border-blue-200 border-solid text-white text-sm py-2 px-4 mb-4 rounded-xl hover:bg-blue-600">Add New Company</button></div>
+                        <a href='/companies/create' class="bg-blue-400 border-2 border-blue-200 border-solid text-white text-sm py-2 px-4 mb-4 rounded-xl hover:bg-blue-600">Add New Company</a></div>
                     {{-- <ul class="flex flex-col flex-nowrap"> --}}
                         <div class="mb-8">{{$companies->links()}}</div>
                         <table class="w-full [&_tr]:mb-2 mt-2 mb-8">
